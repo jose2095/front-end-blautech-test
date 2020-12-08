@@ -1,0 +1,103 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <button type="button" (click)="editar=false; formUsuario.reset()" class="btn btn-primary ml-3 mt-2" data-toggle="modal" data-target="#formUsuario">
+    Añadir Usuario
+  </button>
+    <table class="table m-3">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of usuarios">
+            <td>{{user.nombre}}</td>
+            <td>{{user.correo}}</td>
+            <td>{{user.direccion}}</td>
+            <th>
+              <button (click)="usuario=user" data-toggle="modal" data-target="#detalles" class="btn btn-primary mr-1">Detalles</button>
+              <button (click)="editarU(user)" data-toggle="modal" data-target="#formUsuario" class="btn btn-success mr-1">Editar</button>
+              <button (click)="deleteUsuario(user._id)" class="btn btn-danger">Eliminar</button>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+
+<div class="modal fade" id="formUsuario" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Añadir/Editar Usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formUsuario">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input formControlName="nombre" type="text" class="form-control" id="nombre">
+          </div>
+          <div class="form-group">
+            <label for="sexo">Sexo</label>
+            <select formControlName="sexo" class="form-control" id="sexo">
+              <option value="M">Masculino</option>
+              <option value="F">Femenino</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="correo">Correo</label>
+            <input formControlName="correo" type="email" class="form-control" id="correo">
+          </div>
+          <div class="form-group">
+            <label for="direccion">Dirección</label>
+            <input formControlName="direccion" type="text" class="form-control" id="direccion">
+          </div>
+          <div class="form-group">
+            <label for="telefono">Telefono</label>
+            <input formControlName="telefono" type="text" class="form-control" id="telefono">
+          </div>
+          <div class="form-group">
+            <label for="edad">Edad</label>
+            <input formControlName="edad" type="number" class="form-control" id="nombre" min="0">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button (click)="save()"  type="button" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="detalles" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Detalles</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <p>Nombre: {{usuario?.nombre}}</p>
+      <p>Direccion: {{usuario?.direccion}}</p>
+      <p>Edad: {{usuario?.edad}}</p>
+      <p>Telefono: {{usuario?.telefono}}</p>
+      <p>Sexo: {{usuario?.sexo}}</p>
+      <p>Correo: {{usuario?.correo}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
